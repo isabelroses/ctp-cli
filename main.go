@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/catppuccin/cli/commands"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/alecthomas/kong"
 )
 
 type model struct {
@@ -95,11 +97,37 @@ func (m model) View() string {
     return s
 }
 
+type Context struct {
+
+}
+
+var cli struct {
+  Init commands.InitCommand `cmd:"" help:"Initialise a port" aliases:"innit"`
+  Interactive bool `help:"Enable interactive mode"`
+}
 
 func main() {
-	p := tea.NewProgram(makeModel())
-    if _, err := p.Run(); err != nil {
-        fmt.Printf("Alas, there's been an error: %v", err)
-        os.Exit(1)
-    }
+	if false {
+		p := tea.NewProgram(makeModel())
+		if _, err := p.Run(); err != nil {
+			fmt.Printf("Alas, there's been an error: %v", err)
+			os.Exit(1)
+		}
+	}
+
+	ctx := kong.Parse(&cli, 
+		kong.UsageOnError(),
+		kong.Name("ctp"),
+		kong.Description("A suite of tools to help you create and manage our ports"),
+		kong.UsageOnError(),
+		kong.ConfigureHelp(kong.HelpOptions{
+			Compact: true,
+		}),
+	)
+
+	err := ctx.Run(&commands.Context {
+		Interactive: cli.Interactive,
+	})
+
+	ctx.FatalIfErrorf(err)
 }

@@ -34,3 +34,5 @@ stage/
 
 # Weird Apple files
 .DS_STORE
+
+.direnv/

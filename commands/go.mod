@@ -1,15 +1,12 @@
-module github.com/catppuccin/cli/v2
+module github.com/catppuccin/cli/commands/v2
 
 go 1.20
 
-require github.com/charmbracelet/bubbletea v0.26.4
-
 require (
-	github.com/alecthomas/kong v0.9.0
-	github.com/catppuccin/cli/commands v0.0.0
+	github.com/charmbracelet/huh v0.4.2
+	github.com/charmbracelet/huh/spinner v0.0.0-20240529143420-2ae64435bd5d
+	github.com/go-git/go-git/v5 v5.12.0
 )
-
-replace github.com/catppuccin/cli/commands => ./commands
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
@@ -19,11 +16,10 @@ require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/catppuccin/go v0.2.0 // indirect
 	github.com/charmbracelet/bubbles v0.18.0 // indirect
-	github.com/charmbracelet/huh v0.4.2 // indirect
-	github.com/charmbracelet/huh/spinner v0.0.0-20240529143420-2ae64435bd5d // indirect
+	github.com/charmbracelet/bubbletea v0.26.3 // indirect
 	github.com/charmbracelet/lipgloss v0.11.0 // indirect
 	github.com/charmbracelet/log v0.4.0 // indirect
-	github.com/charmbracelet/x/ansi v0.1.2 // indirect
+	github.com/charmbracelet/x/ansi v0.1.1 // indirect
 	github.com/charmbracelet/x/exp/strings v0.0.0-20240524151031-ff83003bf67a // indirect
 	github.com/charmbracelet/x/input v0.1.1 // indirect
 	github.com/charmbracelet/x/term v0.1.1 // indirect
@@ -35,7 +31,6 @@ require (
 	github.com/erikgeiser/coninput v0.0.0-20211004153227-1c3628e74d0f // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-git/go-billy/v5 v5.5.0 // indirect
-	github.com/go-git/go-git/v5 v5.12.0 // indirect
 	github.com/go-logfmt/logfmt v0.6.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
