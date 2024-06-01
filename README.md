@@ -17,41 +17,27 @@
 </p>
 
 ## Catppuccin CLI
-A work-in-progress CLI for Catppuccin themes.
+An all-in-one CLI for creating and managing Catppuccin ports!
 
-It allows you to:
-- Install themes with one command
-- Uninstall themes with one command
-- Update themes with one command
+## Usage:
+```
+Usage: ctp <command> [flags]
+
+A suite of tools to help you create and manage our ports
+
+Flags:
+  -h, --help           Show context-sensitive help.
+      --interactive    Enable interactive mode
+
+Commands:
+  init (innit)    Initialise a port
+```
 
 ## Installation
-- You can download the executable for this project from the releases section. Download the release as per your OS. 
+- TBC
 
 ## Development 
-- The foremost requirement to develop is to make sure that go version 1.19 is installed. 
-- Development and contribution guidelines along with the future development plans have been added to the [wiki](https://github.com/catppuccin/cli/wiki/Contributing).
-
-## Building
-You can simply build the cli with `make`. This will automatically install the required dependencies and build the program. The outputed executable will be in `builds/`. You can also use GoReleaser to build it for all platforms.
-
-## Docker image 
-- The cli also has a Docker image. To build it, run `docker build --network=host -t ctp:latest .`.
-- To run the built image, run the command `docker run -it --rm --net=host ctp:latest help`.
-
-## TODO
-- [x] Hooks 
-  - [x] Install hooks
-  - [x] Uninstall hooks
-- [x] Command hooks: To execute shell scripts.  
-- [x] Web hooks: To handle `xdg-open`, `open` or equivalent command on Windows. 
-- [x] Rework remove function from scratch: Need to find a way to save the flavour user installs. 
-- [x] Better error handling overall 
-- [x] Use `gofmt` from now on. 
-- [x] Rewrite the wiki for catppuccin/cli to make first contributions easier. 
-- [x] Refactoring: 
-  - [x] Move `cmd` to `internal`
-  - [x] Move `main.go` to `cmd/ctp` => Reason: Check [#25](https://github.com/catppuccin/cli/issues/25)
-
+- TBC
 
 &nbsp;
 
