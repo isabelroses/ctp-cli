@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"os"
 	"os/exec"
@@ -15,7 +16,6 @@ import (
 
 	"github.com/charmbracelet/huh"
 	"github.com/charmbracelet/log"
-	git "github.com/go-git/go-git/v5"
 )
 
 //go:embed templates/README.tmpl.md
