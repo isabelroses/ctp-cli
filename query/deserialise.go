@@ -2,8 +2,10 @@ package query
 
 import (
 	_ "embed"
+	"strings"
 
 	"github.com/charmbracelet/log"
+
 	yaml "gopkg.in/yaml.v3"
 )
 
@@ -18,20 +20,53 @@ func parseYaml(yml string) PortsYAML {
 		log.Fatal("Could not parse static YML", "err", err)
 	}
 
+	portsYml.Maintainers = make(map[string]Maintainer)
+
+	for _, v := range portsYml.RawMaintainers {
+		var maintainer Maintainer
+		err = v.Decode(&maintainer)
+		if err != nil {
+			log.Fatal("Could not parse maintainer", "err", err)
+		}
+		
+		if maintainer.Name == nil {
+			newName := strings.Clone(v.Anchor)
+			maintainer.Name = &newName
+		}
+		portsYml.Maintainers[v.Anchor] = maintainer
+	}
+
+	for i := range portsYml.Ports {
+		// FIXME: `v` takes a copy, don't. Take a ref
+		v := portsYml.Ports[i]
+		currentMaintainers := make([]Maintainer, 0, len(v.RawCurrentMaintainers))
+
+		for _, maintainer := range v.RawCurrentMaintainers {
+			newMaintainer := portsYml.Maintainers[maintainer.Value]
+			currentMaintainers = append(currentMaintainers, newMaintainer)
+		}
+
+		v.CurrentMaintainers = currentMaintainers
+		
+		// FIXME: Because `v` is a copy, we need to write it back
+		portsYml.Ports[i] = v
+	}
+
 	return portsYml
 }
 
 var staticYAML = parseYaml(yamlString)
 
 type Port struct {
-	Name               string        `yaml:"name"`
-	Categories         []string      `yaml:"categories"`
-	Platform           interface{}   `yaml:"platform"`
-	Color              string        `yaml:"color"`
-	CurrentMaintainers []*Maintainer `yaml:"current-maintainers"`
+	Name                  string      `yaml:"name"`
+	Categories            []string    `yaml:"categories"`
+	Platform              interface{} `yaml:"platform"`
+	Color                 string      `yaml:"color"`
+	RawCurrentMaintainers []yaml.Node `yaml:"current-maintainers"`
+	CurrentMaintainers    []Maintainer
 }
 
-func (p Port) Maintainers() []*Maintainer {
+func (p Port) Maintainers() []Maintainer {
 	return p.CurrentMaintainers
 }
 
@@ -40,7 +75,7 @@ func (p Port) Render() string {
 }
 
 type Maintainer struct {
-	URL string `yaml:"url"`
+	URL  string  `yaml:"url"`
 	Name *string `yaml:"name"`
 }
 
@@ -58,8 +93,9 @@ type ShowcaseEntry struct {
 }
 
 type PortsYAML struct {
-	Maintainers []Maintainer    `yaml:"collaborators"`
-	Ports       map[string]Port `yaml:"ports"`
-	Categories  []Category      `yaml:"categories"`
-	Showcases   []ShowcaseEntry `yaml:"showcases"`
+	RawMaintainers []yaml.Node `yaml:"collaborators"`
+	Maintainers    map[string]Maintainer
+	Ports          map[string]Port `yaml:"ports"`
+	Categories     []Category      `yaml:"categories"`
+	Showcases      []ShowcaseEntry `yaml:"showcases"`
 }
