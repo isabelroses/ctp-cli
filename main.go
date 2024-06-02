@@ -1,17 +1,20 @@
 package main
 
 import (
-	"github.com/catppuccin/cli/commands"
 	"github.com/alecthomas/kong"
+	"github.com/catppuccin/cli/commands"
+	"github.com/charmbracelet/log"
 )
 
 var cli struct {
-  Init commands.InitCommand `cmd:"" help:"Initialise a port" aliases:"innit"`
-  Interactive bool `help:"Enable interactive mode"`
+	Init        commands.InitCommand `cmd:"" help:"Initialise a port" aliases:"innit"`
+	Interactive bool                 `help:"Enable interactive mode"`
 }
 
 func main() {
-	ctx := kong.Parse(&cli, 
+	log.SetReportTimestamp(false)
+
+	ctx := kong.Parse(&cli,
 		kong.UsageOnError(),
 		kong.Name("ctp"),
 		kong.Description("A suite of tools to help you create and manage our ports"),
@@ -21,7 +24,7 @@ func main() {
 		}),
 	)
 
-	err := ctx.Run(&commands.Context {
+	err := ctx.Run(&commands.Context{
 		Interactive: cli.Interactive,
 	})
 
