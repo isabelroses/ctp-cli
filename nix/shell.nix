@@ -3,6 +3,7 @@
   gopls,
   goreleaser,
   callPackage,
+  gcc
 }:
 let
   mainPkg = callPackage ./default.nix { };
