@@ -49,6 +49,14 @@ func ensureSet(str string) error {
 	return nil
 }
 
+func configureInteractiveFromArgs(ctx *Context, args ...string) {
+	for _, arg := range args {
+		if arg == "" {
+			ctx.Interactive = true
+		}
+	}
+}
+
 func (i *InitCommand) Run(ctx *Context) error {
 	var err error
 
@@ -59,6 +67,8 @@ func (i *InitCommand) Run(ctx *Context) error {
 	if len(i.GitURL) == 0 {
 		i.GitURL = fmt.Sprintf("https://github.com/%s", i.GitName)
 	}
+
+	configureInteractiveFromArgs(ctx, i.RepoName, i.AppName, i.AppLink, i.GitName, i.GitURL)
 
 	if ctx.Interactive {
 		form := huh.NewForm(
