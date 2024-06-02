@@ -70,6 +70,10 @@ func (p Port) Maintainers() []Maintainer {
 	return p.CurrentMaintainers
 }
 
+func (p Port) FilterValue() string {
+	return p.Name
+}
+
 func (p Port) Render() string {
 	return p.Name
 }

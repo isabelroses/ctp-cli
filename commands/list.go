@@ -43,6 +43,18 @@ func (r *userstylesSubCommand) Run(ctx *shared.Context) error {
 	return nil
 }
 
+type PortWithMeta struct {
+	post query.Port
+}
+
+func (p PortWithMeta) FilterValue() string {
+	return p.post.FilterValue()
+}
+
+func (p PortWithMeta) Render() string {
+	return fmt.Sprintf("%s\n stars: 10 | issues: 3 | installs: 350", p.post.Render())
+}
+
 func (r *portsSubCommand) Run(ctx *shared.Context) error {
 	ports := ctx.Datastore.Ports()
 	title := "All ports"
@@ -56,8 +68,17 @@ func (r *portsSubCommand) Run(ctx *shared.Context) error {
 		title = "Unmaintained ports"
 	}
 
+	slices.SortFunc(ports, query.SortPortLexicographically)
+
 	if ctx.Interactive {
-		component := NewListComponent(title, ports)
+		wrappedPorts := WrapItems(ports, func(port query.Port) PortWithMeta {
+			return PortWithMeta{
+				port,
+			}
+		})
+
+		component := NewListComponent(title, wrappedPorts)
+
 		component.Show()
 		return nil
 	}
@@ -72,8 +93,6 @@ func (r *portsSubCommand) Run(ctx *shared.Context) error {
 	}
 
 	fmt.Println()
-
-	slices.SortFunc(ports, query.SortPortLexicographically)
 
 	for _, port := range ports {
 		fmt.Printf("%s has %d maintainers\n", port.Name, len(port.CurrentMaintainers))
