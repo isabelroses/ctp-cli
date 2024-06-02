@@ -7,7 +7,8 @@ import (
 )
 
 var cli struct {
-	Init        commands.InitCommand `cmd:"" help:"Initialise a port" aliases:"innit"`
+	Init        commands.InitCommand `cmd:"" help:"Initialise a port from catppuccin/template" aliases:"innit"`
+	List        commands.ListCommand `cmd:"" help:"Query ports and userstyles"`
 	Interactive bool                 `help:"Enable interactive mode"`
 }
 
