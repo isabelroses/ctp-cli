@@ -19,6 +19,7 @@
             go
             gopls
             goreleaser
+            gcc
           ];
         };
       }
