@@ -92,7 +92,6 @@ func (i *InitCommand) Run(ctx *shared.Context) error {
 	}
 
 	i.RepoName, err = filepath.Abs(i.RepoName)
-
 	if err != nil {
 		log.Fatal("Failed to resolve path", "err", err)
 	}
@@ -105,7 +104,6 @@ func (i *InitCommand) Run(ctx *shared.Context) error {
 		URL:           "https://github.com/catppuccin/template/",
 		ReferenceName: "main",
 	})
-
 	if err != nil {
 		log.Fatal("Problem when cloning template repository", "err", err)
 	}
