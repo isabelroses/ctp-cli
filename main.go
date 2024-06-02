@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/alecthomas/kong"
 	"github.com/catppuccin/cli/commands"
 	"github.com/catppuccin/cli/query"
@@ -8,6 +10,7 @@ import (
 	catppuccin "github.com/catppuccin/go"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/log"
+	"golang.org/x/term"
 )
 
 var cli struct {
@@ -31,6 +34,10 @@ func main() {
 			Tree: true,
 		}),
 	)
+
+	if term.IsTerminal(int(os.Stdin.Fd())) {
+		cli.Interactive = true
+	}
 
 	err := ctx.Run(&shared.Context{
 		Interactive: cli.Interactive,

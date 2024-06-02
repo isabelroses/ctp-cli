@@ -1,9 +1,9 @@
 package commands
 
 import (
+	"github.com/catppuccin/cli/shared"
 	"github.com/charmbracelet/log"
 )
-import "github.com/catppuccin/cli/shared"
 
 type InstallCommand struct {
 	Port string `arg:""`
