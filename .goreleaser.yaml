@@ -8,7 +8,7 @@ builds:
       - linux
       - windows
       - darwin
-    main: "./cmd/ctp"
+    main: "main.go"
     binary: "ctp"
 checksum:
   name_template: 'checksums.txt'
