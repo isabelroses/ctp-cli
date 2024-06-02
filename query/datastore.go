@@ -27,5 +27,5 @@ func FilterUnmaintained[T HasMaintainers](input []T) []T {
 }
 
 type HasMaintainers interface {
-	Maintainers() []*Maintainer
+	Maintainers() []Maintainer
 }

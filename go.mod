@@ -2,7 +2,7 @@ module github.com/catppuccin/cli
 
 go 1.20
 
-require github.com/charmbracelet/bubbletea v0.26.4 // indirect
+require github.com/charmbracelet/bubbletea v0.26.4
 
 require (
 	github.com/alecthomas/kong v0.9.0
