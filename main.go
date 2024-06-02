@@ -9,9 +9,11 @@ import (
 )
 
 var cli struct {
-	Init        commands.InitCommand `cmd:"" help:"Initialise a port from catppuccin/template" aliases:"innit"`
-	List        commands.ListCommand `cmd:"" help:"Query ports and userstyles"`
-	Interactive bool                 `help:"Enable interactive mode"`
+	Init        commands.InitCommand      `cmd:"" help:"Initialise a port from catppuccin/template" aliases:"innit"`
+	List        commands.ListCommand      `cmd:"" help:"Query ports and userstyles"`
+	Install     commands.InstallCommand   `cmd:"" help:"Install a port"`
+	Uninstall   commands.UninstallCommand `cmd:"" help:"Uninstall a port"`
+	Interactive bool                      `help:"Enable interactive mode"`
 }
 
 func main() {
@@ -21,10 +23,10 @@ func main() {
 	ctx := kong.Parse(&cli,
 		kong.UsageOnError(),
 		kong.Name("ctp"),
-		kong.Description("A suite of tools to help you create and manage our ports"),
+		kong.Description("Soothing pastel theme manager for Catppuccin!"),
 		kong.UsageOnError(),
 		kong.ConfigureHelp(kong.HelpOptions{
-			Compact: true,
+			Tree: true,
 		}),
 	)
 
