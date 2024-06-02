@@ -11,32 +11,41 @@
 	<a href="https://github.com/catppuccin/cli/contributors"><img src="https://img.shields.io/github/contributors/catppuccin/cli?colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
 </p>
 
-<p align="center">
+## Usage
 
-<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/sample.png"/>
-</p>
+```bash
+$ ctp --help
 
-## Catppuccin CLI
-An all-in-one CLI for creating and managing Catppuccin ports!
-
-## Usage:
-```
 Usage: ctp <command> [flags]
 
-A suite of tools to help you create and manage our ports
+Soothing pastel theme manager for Catppuccin!
 
 Flags:
   -h, --help           Show context-sensitive help.
       --interactive    Enable interactive mode
 
 Commands:
-  init (innit)    Initialise a port
+  init (innit)              Initialise a port from catppuccin/template
+    [<repo-name>]           The name of the port repository
+
+  list                      Query ports and userstyles
+    repositories (repos)
+    userstyles
+    ports
+
+  install                   Install a port
+    <port>
+
+  uninstall                 Uninstall a port
+    <port>
 ```
 
 ## Installation
+
 - TBC
 
-## Development 
+## Development
+
 - TBC
 
 &nbsp;
