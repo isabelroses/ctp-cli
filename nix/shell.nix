@@ -12,5 +12,6 @@ mainPkg.overrideAttrs (oa: {
     go
     gopls
     goreleaser
+    gcc
   ] ++ (oa.nativeBuildInputs or [ ]);
 })
