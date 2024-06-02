@@ -20,6 +20,7 @@
           buildInputs = [
             go
             gopls
+            goreleaser
           ];
         };
       }
