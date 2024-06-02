@@ -4,13 +4,15 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
 	"text/template"
+
+	"github.com/catppuccin/cli/shared"
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
 
 	_ "embed"
 
@@ -50,7 +52,7 @@ func ensureSet(str string) error {
 	return nil
 }
 
-func configureInteractiveFromArgs(ctx *Context, args ...string) {
+func configureInteractiveFromArgs(ctx *shared.Context, args ...string) {
 	for _, arg := range args {
 		if arg == "" {
 			ctx.Interactive = true
@@ -58,7 +60,7 @@ func configureInteractiveFromArgs(ctx *Context, args ...string) {
 	}
 }
 
-func (i *InitCommand) Run(ctx *Context) error {
+func (i *InitCommand) Run(ctx *shared.Context) error {
 	var err error
 
 	if len(i.GitName) == 0 {

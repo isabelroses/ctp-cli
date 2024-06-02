@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/alecthomas/kong"
 	"github.com/catppuccin/cli/commands"
+	"github.com/catppuccin/cli/query"
+	"github.com/catppuccin/cli/shared"
 	catppuccin "github.com/catppuccin/go"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/log"
@@ -30,8 +32,9 @@ func main() {
 		}),
 	)
 
-	err := ctx.Run(&commands.Context{
+	err := ctx.Run(&shared.Context{
 		Interactive: cli.Interactive,
+		Datastore:   query.NewDatastore(),
 	})
 
 	ctx.FatalIfErrorf(err)
