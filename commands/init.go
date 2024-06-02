@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"github.com/go-git/go-git/v5/plumbing"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -108,9 +109,18 @@ func (i *InitCommand) Run(ctx *Context) error {
 	}
 
 	log.Info("Cloning the template...")
-	os.RemoveAll(filepath.Join(i.RepoName, ".git"))
+	dotGitPath := filepath.Join(i.RepoName, ".git")
+	err = os.RemoveAll(dotGitPath)
+	if err != nil {
+		log.Errorf("Failed to remove %s directory (%s), continuing...", dotGitPath, err.Error())
+	}
 
-	git.InitWithOptions(r.Storer, nil, git.InitOptions{})
+	_, err = git.InitWithOptions(r.Storer, nil, git.InitOptions{
+		DefaultBranch: plumbing.Main,
+	})
+	if err != nil {
+		log.Error("Failed to init repository, continuing...", "err", err)
+	}
 
 	tmpl := template.New("README")
 	vars := map[string]any{
