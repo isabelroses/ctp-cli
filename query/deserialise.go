@@ -28,7 +28,7 @@ func parseYaml(yml string) PortsYAML {
 		if err != nil {
 			log.Fatal("Could not parse maintainer", "err", err)
 		}
-		
+
 		if maintainer.Name == nil {
 			newName := strings.Clone(v.Anchor)
 			maintainer.Name = &newName
@@ -37,7 +37,7 @@ func parseYaml(yml string) PortsYAML {
 	}
 
 	for i := range portsYml.Ports {
-		// FIXME: `v` takes a copy, don't. Take a ref
+		// NOTE: `v` takes a copy
 		v := portsYml.Ports[i]
 		currentMaintainers := make([]Maintainer, 0, len(v.RawCurrentMaintainers))
 
@@ -47,8 +47,8 @@ func parseYaml(yml string) PortsYAML {
 		}
 
 		v.CurrentMaintainers = currentMaintainers
-		
-		// FIXME: Because `v` is a copy, we need to write it back
+
+		// NOTE: Because `v` is a copy, we need to write it back
 		portsYml.Ports[i] = v
 	}
 
