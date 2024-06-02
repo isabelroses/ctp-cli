@@ -39,7 +39,7 @@ func getGitName() string {
 		return ""
 	}
 
-	return string(stdout)
+	return strings.TrimSpace(string(stdout))
 }
 
 func ensureSet(str string) error {
