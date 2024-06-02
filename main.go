@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/alecthomas/kong"
 	"github.com/catppuccin/cli/commands"
+	catppuccin "github.com/catppuccin/go"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/log"
 )
 
@@ -14,6 +16,7 @@ var cli struct {
 
 func main() {
 	log.SetReportTimestamp(false)
+	log.SetStyles(setLogColours())
 
 	ctx := kong.Parse(&cli,
 		kong.UsageOnError(),
@@ -30,4 +33,32 @@ func main() {
 	})
 
 	ctx.FatalIfErrorf(err)
+}
+
+func setLogColours() *log.Styles {
+	styles := log.DefaultStyles()
+	flavour := catppuccin.Mocha
+	dot := "•"
+	cross := "❌"
+	styles.Levels[log.InfoLevel] = lipgloss.NewStyle().
+		SetString(dot).
+		PaddingLeft(1).
+		Foreground(lipgloss.Color(flavour.Teal().Hex))
+	styles.Levels[log.DebugLevel] = lipgloss.NewStyle().
+		SetString(dot).
+		PaddingLeft(1).
+		Foreground(lipgloss.Color(flavour.Subtext1().Hex))
+	styles.Levels[log.WarnLevel] = lipgloss.NewStyle().
+		SetString(dot).
+		PaddingLeft(1).
+		Foreground(lipgloss.Color(flavour.Yellow().Hex))
+	styles.Levels[log.ErrorLevel] = lipgloss.NewStyle().
+		SetString(cross).
+		PaddingLeft(1).
+		Foreground(lipgloss.Color(flavour.Red().Hex))
+	styles.Levels[log.FatalLevel] = lipgloss.NewStyle().
+		SetString(cross).
+		PaddingLeft(1).
+		Foreground(lipgloss.Color(flavour.Red().Hex))
+	return styles
 }
