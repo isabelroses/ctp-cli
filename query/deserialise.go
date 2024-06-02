@@ -35,6 +35,10 @@ func (p Port) Maintainers() []*Maintainer {
 	return p.CurrentMaintainers
 }
 
+func (p Port) Render() string {
+	return p.Name
+}
+
 type Maintainer struct {
 	URL string `yaml:"url"`
 	Name *string `yaml:"name"`

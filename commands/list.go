@@ -57,7 +57,8 @@ func (r *portsSubCommand) Run(ctx *shared.Context) error {
 	}
 
 	if ctx.Interactive {
-		showPortList(ports, title)
+		component := NewListComponent(title, ports)
+		component.Show()
 		return nil
 	}
 
